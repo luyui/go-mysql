@@ -180,6 +180,10 @@ func (c *Conn) bindStmtArgs(s *Stmt, nullBitmap, paramTypes, paramValues []byte)
 			continue
 		}
 
+		if args[i] != nil {
+			continue // this arg is already bond in COM_STMT_SEND_LONG_DATA
+		}
+
 		tp := paramTypes[i<<1]
 		isUnsigned := (paramTypes[(i<<1)+1] & 0x80) > 0
 
